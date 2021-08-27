@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persongalleri</title>
+    <!-- Her styler vi uden en .css fil  -->
+    <style>
+      body {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: 20px;
+        margin: 0 auto;
+      }
+      article {
+        border: 1px solid black;
+        padding: 20px;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Tomt main-tag hvor personerne bliver puttet ind i -->
+    <main></main>
+
+    <h1>Persongalleri</h1>
+
+    <!-- Template med tomme tags (med classes), styrer layoutet - her bliver puttet indhold i længere nede -->
+    <template>
+      <article>
+        <img src="" alt="" class="billede" />
+        <h2 class="navn"></h2>
+        <p class="titel"></p>
+        <p class="fødselsdag"></p>
+      </article>
+    </template>
+
+    <script>
+      //Her er links til restdb hvor JSON data kommer fra (istedet for et .json-dokument her mappen)
+      const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+
+      //Kode til restdb data siden
+      const options = {
+        headers: {
+          "x-apikey": "600fe9211346a1524ff12e31",
+        },
+      };
+
+      //Async function/asynkron metode henter, anmoder osv uden at opdate siden
+      async function hentData() {
+        const respons = await fetch(url, options);
+        //Her piller vi vores isolerede json data ud
+        const json = await respons.json();
+        vis(json);
+      }
+
+      //2 const'er (konstante variabler) til de tomme tags længere oppe
+      const main = document.querySelector("main");
+      const template = document.querySelector("template").content;
+
+      //Her laver vi funktionen vis med en array med en forEach (loop-syntax)
+      function vis(json) {
+        console.log(json);
+        json.forEach((person) => {
+          const klon = template.cloneNode(true);
+          klon.querySelector(".billede").src = "faces/" + person.billede;
+          klon.querySelector(".navn").textContent = person.navn;
+          klon.querySelector(".titel").textContent = person.titel;
+          klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
+          main.appendChild(klon);
+        });
+      }
+
+      hentData();
+    </script>
+  </body>
+</html>
