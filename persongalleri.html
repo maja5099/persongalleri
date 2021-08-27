@@ -7,28 +7,35 @@
     <title>Persongalleri</title>
     <!-- Her styler vi uden en .css fil  -->
     <style>
+      * {
+        box-sizing: border-box;
+      }
+      img {
+        max-width: 50%;
+      }
       body {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      section {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-gap: 20px;
-        margin: 0 auto;
       }
       article {
         border: 1px solid black;
         padding: 20px;
       }
-
-      img {
-        max-width: 100%;
-      }
     </style>
   </head>
 
   <body>
+    <!-- Til styling -->
+    <h1>Persongalleri</h1>
+    <section></section>
+
     <!-- Tomt main-tag hvor personerne bliver puttet ind i -->
     <main></main>
-
-    <h1>Persongalleri</h1>
 
     <!-- Template med tomme tags (med classes), styrer layoutet - her bliver puttet indhold i længere nede -->
     <template>
